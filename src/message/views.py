@@ -45,50 +45,60 @@ def addRequest(request):
     objTelephone = Telephone.objects.all()
     return render(request,'message/formRequest.html',{'typeDemandes':objTypes, 'sendBy':user.service, 'employees':objEmployees, 'acces':objAcces,'ordinateurs':objOrdinateur,'telephones':objTelephone})
 
+
 def saveRequest(request):
     error = False
     if request.POST:
         data = request.POST
-        if 'typeDemande' in data :
+        if 'typeDemande' in data:
             typeDemande = data.get('typeDemande')
-            typeDemande = TypeDemande.objects.get(id = typeDemande)
-            employee = data.get('employee')  
-            employee = Employee.objects.get(id = employee)
-            sendBy = data.get('sendBy') 
-            receiver = data.get('receiver') 
-            receiver = Service.objects.get(id = receiver)
-            description = data.get('description') 
+            typeDemande = TypeDemande.objects.get(id=typeDemande)
+            employee = data.get('employee')
+            employee = Employee.objects.get(id=employee)
+            sendBy = data.get('sendBy')
+            print(sendBy)
+            # receiver = data.get('receiver')
+            #receiver = Service.objects.get(id=receiver)
+            receiver = employee.service
+            description = data.get('description')
         else:
             error = True
 
-        if 'refAcces' in data and data.get('refAcces') != "" : 
+        if 'refAcces' in data and data.get('refAcces') != "":
             refAcces = data.get('refAcces')
-            refAcces = Acces.objects.get(id = refAcces)
-        else :
-            refAcces =""
+            refAcces = Acces.objects.get(id=refAcces)
+        else:
+            refAcces = ""
 
-        if 'refOrdi' in data and data.get('refOrdi') != "" :
+        if 'refOrdi' in data and data.get('refOrdi') != "":
             refOrdi = data.get('refOrdi')
-            refOrdi = Ordinateur.objects.get(id = refOrdi)
-        else :
+            refOrdi = Ordinateur.objects.get(id=refOrdi)
+        else:
             refOrdi = ""
 
-        if 'refPhone' in data and data.get('refPhone') != "" :
+        if 'refPhone' in data and data.get('refPhone') != "":
             refPhone = data.get('refPhone')
-            refPhone = Telephone.objects.get(id = refPhone)
+            refPhone = Telephone.objects.get(id=refPhone)
         else:
             refPhone = ""
 
-        sendBy = "RH"
         if not error:
-            newMessage = Message(typeDemande = typeDemande,  ordinateur = refOrdi,   telephone = refPhone,  acces = refAcces,  description = description, employe = employee, sendBy = sendBy, receiver = receiver)
-            newMessage.save()
-
             id = request.session['user_id']
-            emp = Employee.objects.get(id=id) 
-            obj = Message.objects.filter(receiver=emp.service)
-            return render(request,"message/index.html", context={"Messages": obj, "emp":emp})
+            emp = Employee.objects.get(id=id)
+            # service_id = Service.objects.filter(libelle=receiver)
+            # service_id = Service.objects.all
+            # obj = Message.objects.filter(receiver=service_id.id)
+            # receiver.set()
+
+            newMessage = Message(typeDemande=typeDemande, ordinateur=refOrdi, telephone=refPhone, acces=refAcces,
+                                 description=description, employe=employee, sendBy=sendBy)
+
+            newMessage.save()
+            newMessage.receiver.add(receiver)
+            obj = {}
+            return render(request, "message/index.html", context={"Messages": obj, "emp": emp})
         else:
             return HttpResponse("type demande obligatoire ")
+
     else:
         return HttpResponse("there is an error ")
