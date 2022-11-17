@@ -1,0 +1,4 @@
+/!\ malgrès mon .gitignor, les dossiers/fichiers suivant ont étét pushé:
+venv
+migrations
+db.sqlite3
