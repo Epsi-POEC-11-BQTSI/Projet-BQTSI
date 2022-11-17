@@ -3,15 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Site de communication</title>
+    <title>Site de communication interservices</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
 </head>
 <body>
-    <h1>Mon application de communication</h1>
-    <p>Bonjour {{ user }}</p>
-        <p>Il est {% now "j F Y" %} et il est {% now "H:i" %}</p>
-        <p>il est {{ date |date:"l d " | capfirst }} {{ date |date:" F Y" | capfirst }} et il est {{ date |date:"H:i"}}</p>
-        <p>Veuillez vous connecter</p>
+    <h1>Application de communication interservices</h1>
+    <p>Bonjour, authentifiez-vous</p>
+
 
         {% include 'message/login.html' %}
 </body>
