@@ -1,4 +1,0 @@
-/!\ malgrès mon .gitignore, les dossiers/fichiers suivant ont étét pushé:
-venv
-migrations
-db.sqlite3
