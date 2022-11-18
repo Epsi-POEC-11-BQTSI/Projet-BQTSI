@@ -9,6 +9,21 @@
 <body>
     <div class="container">
         <h1>Détail du message  </h1>
+<<<<<<< HEAD
+        <h2>{{valeur.typeDemande}}</h2>
+        <p>Référence Ordinateur :  {{ valeur.ordinateur }}</p>
+        <p>Référence Droit :   {{ valeur.acces }}</p>
+        <p>Référence Téléphone :   {{ valeur.telephone }}</p>
+        <p>Description :   {{ valeur.description }}</p>
+        <p>Employé :   {{ valeur.employe }}</p>
+        <p>Envoyer par :   {{ valeur.sendBy }}</p>
+        <p>Destinataire :   {{ valeur.receiver }}</p>
+        <p>Date : {{valeur.dateReceiver}}</p>
+        <p>Validation : {{valeur.valid}}</p>
+        <p>Fichier : {{valeur.file}}</p>
+        <div class="flex"><button onclick="" >Valider la proposition </button><button onclick="">Réfuser la proposition </button></div>
+        <br><input type="button" value = "Retour" onclick="history.back()">
+=======
         <div class="box">
             <form>
                 {% csrf_token %}
@@ -42,6 +57,7 @@
             
         <div class="flex"><a href="valid/{{valeur.id}}" class="mon-button">Valider</a><a href="refuse/{{valeur.id}}" class="mon-button">Refuser</a></div>
         
+>>>>>>> f18d672a17aa23239d2c1b6534d21ca3145844db
     </div>
 </body>
 </html>

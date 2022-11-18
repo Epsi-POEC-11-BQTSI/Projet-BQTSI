@@ -101,6 +101,13 @@ def saveRequest(request):
     else:
         return HttpResponse("there is an error ")
 
+<<<<<<< HEAD
+def ficheRequest(request, reference):
+    info = Employee.objects.get(reference=reference)
+
+    return render(request,"message/fiche.html", {'valeur': info
+                                                 })
+=======
 def validRequest(request, id):
     try : 
         #obj = Message.objects.filter(id=id)
@@ -132,3 +139,4 @@ def refuseRequest(request, id):
 def logOut(request):
         del request.session['user_id']
         return render(request,'index.html')
+>>>>>>> f18d672a17aa23239d2c1b6534d21ca3145844db

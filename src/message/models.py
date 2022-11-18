@@ -61,4 +61,19 @@ class Message(models.Model):
     def __int__(self):
         return self.id
 
+class fiche(models.Model):
+    typeDemande = models.ForeignKey(TypeDemande, on_delete=models.PROTECT)
+    ordinateur = models.CharField(max_length=100, blank=True, null=True)
+    telephone = models.CharField(max_length=100, blank=True, null=True)
+    acces = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    employe = models.ForeignKey(Employee, on_delete=models.PROTECT)
+    sendBy = models.CharField(max_length=10)
+    receiver = models.ForeignKey(Service, on_delete=models.PROTECT)
+    dateReceiver = models.DateTimeField(default=timezone.now)
+    valid = models.BooleanField(default=False)
+    file = models.CharField(max_length=100, blank=True, null=True)
+
+    def __int__(self):
+        return self.id
 
