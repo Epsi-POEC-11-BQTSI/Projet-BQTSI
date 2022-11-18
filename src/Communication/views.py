@@ -7,9 +7,10 @@ from datetime import datetime
 
 def index(request):
     #render (request, "templates")
-   
-    return render(request,"index.html", context={"user":"Zoely", "date": datetime.now()})
+       return render(request,"index.html", context={"user":"Zoely", "date": datetime.now()})
 
-
+def deconnexion(request):
+    del request.session['user_id']
+    return render(request, "index.html")
 
 

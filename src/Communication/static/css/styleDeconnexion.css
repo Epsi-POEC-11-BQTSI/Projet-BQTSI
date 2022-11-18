@@ -1,0 +1,15 @@
+#deconnexion form{
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    box-shadow:none;
+    background: none;
+    width: auto;
+}
+
+#deconnexion button{
+    width: 110px;
+    background-color: #8B008B;
+    float:right;
+
+}

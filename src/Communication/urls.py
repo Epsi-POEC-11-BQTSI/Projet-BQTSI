@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.defaults import server_error
-from .views import index
+from .views import index, deconnexion
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('error/', server_error),
     path('index/', index),
     path('messages/', include("message.urls")),
+    path('deconnexion/', deconnexion)
 ]
