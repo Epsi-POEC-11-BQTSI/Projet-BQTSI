@@ -16,12 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.defaults import server_error
-from .views import index, messageDetail, envoyerMessage, addRequest, saveRequest
+from .views import index, messageDetail, envoyerMessage, addRequest, saveRequest, validRequest, refuseRequest, logOut
 
 urlpatterns = [
     path('', index, name="message"),
     path('<int:id>', messageDetail),
-    path('message/write/', envoyerMessage),
     path('add/', addRequest),
     path('message/save/', saveRequest, name="saveRequest"),
+    path('valid/<int:id>', validRequest),
+    path('refuse/<int:id>', refuseRequest),
+    path('logout/', logOut),
 ]

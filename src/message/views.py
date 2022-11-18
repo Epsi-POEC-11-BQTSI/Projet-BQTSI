@@ -1,30 +1,38 @@
 from datetime import datetime
 
+
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
 from .models import Message, Employee, TypeDemande, Acces, Ordinateur, Telephone, Service
 
 def index(request):
     #render (request, "templates")
-    data = request.POST
-    error = False
-    if data:
-        if 'uname' in data:   
-            try:
-                emp = Employee.objects.get(name=request.POST['uname'])
-                if emp.password == request.POST['psw']:
-                    request.session['user_id'] = emp.id
-                    obj = Message.objects.filter(receiver=emp.service)
-                    return render(request,"message/index.html", context={"Messages": obj, "emp":emp})
-                else:
-                    return HttpResponse("Mot de passe incorrecte.") 
-            except:
-                return HttpResponse("Cet utilisateur  n'existe pas.")
+    if 'user_id' not in request.session:
+        data = request.POST
+        error = False
+        if data:
+            if 'uname' in data:   
+                try:
+                    emp = Employee.objects.get(name=request.POST['uname'])
+                    if emp.password == request.POST['psw']:
+                        request.session['user_id'] = emp.id
+                        obj = Message.objects.filter(receiver=emp.service).filter(valid=False)
+                        return render(request,"message/index.html", context={"Messages": obj, "emp":emp})
+                    else:
+                        return HttpResponse("Mot de passe incorrecte.") 
+                except:
+                    return HttpResponse("Cet utilisateur  n'existe pas.")
+            else:
+                    return HttpResponse("Veuillez saisir l'utilisateur.")
         else:
-                return HttpResponse("Veuillez saisir l'utilisateur.")
-    else:
-        return render(request, "index.html")  
+            return render(request, "index.html")  
+    else :
+        id = request.session['user_id'] 
+        emp = Employee.objects.get(id=id)
+        obj = Message.objects.filter(receiver=emp.service).filter(valid=False)
+        return render(request,"message/index.html", context={"Messages": obj, "emp":emp})
+
 
     
 
@@ -92,3 +100,35 @@ def saveRequest(request):
             return HttpResponse("type demande obligatoire ")
     else:
         return HttpResponse("there is an error ")
+
+def validRequest(request, id):
+    try : 
+        #obj = Message.objects.filter(id=id)
+        obj = Message.objects.filter(id=id).update(valid=True)
+        return redirect("/messages")
+        '''id = request.session['user_id']
+        emp = Employee.objects.get(id=id) 
+        obj = Message.objects.filter(receiver=emp.service).filter(valid=False)
+        return render(request,"message/index.html", context={"Messages": obj, "emp":emp})'''
+    except :
+        return HttpResponse(id)
+
+def refuseRequest(request, id):
+    try : 
+        #obj = Message.objects.filter(id=id)
+        obj = Message.objects.filter(id=id).update(is_active=False)
+        user = request.session['user_id']
+        user = Employee.objects.get(id=user)
+        objTypes = TypeDemande.objects.all()
+        objEmployees = Employee.objects.filter(refOrdi=None)
+        objAcces = Acces.objects.all()
+        objOrdinateur = Ordinateur.objects.all()
+        objTelephone = Telephone.objects.all()
+        return render(request,'message/formRequest.html',{'typeDemandes':objTypes, 'sendBy':user.service, 'employees':objEmployees, 'acces':objAcces,'ordinateurs':objOrdinateur,'telephones':objTelephone})
+
+    except :
+        return HttpResponse(id)
+
+def logOut(request):
+        del request.session['user_id']
+        return render(request,'index.html')

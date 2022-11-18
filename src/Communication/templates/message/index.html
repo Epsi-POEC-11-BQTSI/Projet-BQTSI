@@ -11,7 +11,7 @@
         <h1>TABLEAU DE BORD </h1>
 
             <h2>{{emp.firstName}} {{emp.name}} <p>Service : {{emp.service}}</p></h2>
-            
+            <a href="/messages/logout">Deconnection</a>
 
         <table>
             <tr><th>Numéro demande</th><th>Type demande</th><th>Employé</th><th>Date et heure de réception</th><th>Auteur (Service)</th>{% if emp.service == 'RH' %}<th>Fiche</th>{% endif %}</tr>
@@ -21,6 +21,7 @@
                 {% endfor %}
 
         </table>
+
         <div><a href="/messages/add">Envoyer une demande</a></div>
     </div>
 </body>

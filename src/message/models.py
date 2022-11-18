@@ -55,6 +55,7 @@ class Message(models.Model):
     dateReceiver = models.DateTimeField(default=timezone.now)
     valid = models.BooleanField(default=False)
     file  = models.CharField(max_length=100, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
    
 
     def __int__(self):

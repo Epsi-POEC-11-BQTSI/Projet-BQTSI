@@ -64,7 +64,7 @@ span.psw {
 .flex{
   display: flex;
   flex-wrap: nowrap;
-  width: 100%;
+  width: 80%;
   justify-content: space-between;
 }
 
@@ -152,6 +152,45 @@ color: #fff;
 button:hover {
 background: #2371a0;
 }    
+.box{
+  border: 3px solid #f1f1f1;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 2px 5px #f5f5f5; 
+  background: #f5f5f5; }
+
+.mon-button:link,
+.mon-button:visited,
+.mon-button:active,
+.mon-button{
+  text-decoration :none;
+  color:#000;
+  display:inline-block;
+  width:150px;
+  height:50px;
+  line-height:50px;
+  vertical-align:middle;
+  text-align:center;
+  border-radius :25px;
+  background: #1c87c9; 
+}
+/* Obligatoirement avant :focus*/
+.mon-button:hover{
+  background-color: hsl(203, 71%, 61%);
+  background-image:linear-gradient(to bottom, #e4efc0 0%,#abbd73 100%);
+  
+}
+/* Obligatoirement après :hover*/
+.mon-button:focus{
+  background-color: hsl(203, 71%, 61%);
+  background-image: linear-gradient(to bottom, #fefcea 0%,#f1da36 100%);
+} 
+
+.mon-button:active{
+  font-weight:bold;
+  background-color: hsl(203, 71%, 61%);
+  background-image : linear-gradient(to bottom, #88bfe8 0%,#70b0e0 100%);
+}
 @media (min-width: 568px) {
 .main-block {
 flex-direction: row;
