@@ -1,6 +1,6 @@
+""" Gestion de l'admin """
 from django.contrib import admin
 from .models import Message, TypeDemande, Service, Employee, Ordinateur, Telephone, Acces
-# Register your models here.
 
 
 # Register your models here.

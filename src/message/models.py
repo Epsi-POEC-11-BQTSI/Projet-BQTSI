@@ -1,33 +1,52 @@
+""" Module gérant les class concernant les données des messages
+    NOTE : Instance de Message et Fiche n'ont pas de field id. Genant ???
+"""
 from django.db import models
 from django.utils import timezone
 
+
 class TypeDemande(models.Model):
+    """ Paramètres du champ du type de demande """
     type = models.CharField(max_length=100)
+
     def __str__(self):
-        return self.type
+        return str(self.type)
 
 
 class Service(models.Model):
+    """ Paramètres du champ du libellé d'un service """
     libelle = models.CharField(max_length=100)
+
     def __str__(self):
-        return self.libelle
+        return str(self.libelle)
+
 
 class Ordinateur(models.Model):
+    """ Paramètres du champ concerant le matériel """
     reference = models.CharField(max_length=100)
+
     def __str__(self):
-        return self.reference
+        return str(self.reference)
+
 
 class Telephone(models.Model):
+    """ Paramètres du champ téléphone...Désolé les gens mais fallait un docstring pour pylint -_-"""
     reference = models.CharField(max_length=100)
+
     def __str__(self):
-        return self.reference
+        return str(self.reference)
+
 
 class Acces(models.Model):
+    """ Paramètres du champ concernant l'accès des références dans un service"""
     reference = models.CharField(max_length=100)
+
     def __str__(self):
-        return self.reference
+        return str(self.reference)
+
 
 class Employee(models.Model):
+    """ Paramètres des champs concernant les employés"""
     reference = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     firstName = models.CharField(max_length=50, default=None)
@@ -41,10 +60,12 @@ class Employee(models.Model):
     refPhone = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return self.name +" " +self.firstName
+        return self.name + " " + self.firstName
+
 
 class Message(models.Model):
-    typeDemande = models.ForeignKey(TypeDemande,on_delete=models.PROTECT)
+    """ Paramètres des champs des messages retournés"""
+    typeDemande = models.ForeignKey(TypeDemande, on_delete=models.PROTECT)
     ordinateur  = models.CharField(max_length=100, blank=True, null=True)
     telephone  = models.CharField(max_length=100, blank=True, null=True)
     acces  = models.CharField(max_length=100, blank=True, null=True)
@@ -56,12 +77,13 @@ class Message(models.Model):
     valid = models.BooleanField(default=False)
     file  = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)
-   
 
     def __int__(self):
-        return self.id
+        return str(self.id)
 
-class fiche(models.Model):
+
+class Fiche(models.Model):
+    """ Paramètres des champs de la Fiche à afficher pour un employé"""
     typeDemande = models.ForeignKey(TypeDemande, on_delete=models.PROTECT)
     ordinateur = models.CharField(max_length=100, blank=True, null=True)
     telephone = models.CharField(max_length=100, blank=True, null=True)
@@ -75,5 +97,4 @@ class fiche(models.Model):
     file = models.CharField(max_length=100, blank=True, null=True)
 
     def __int__(self):
-        return self.id
-
+        return str(self.id)
