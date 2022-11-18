@@ -41,7 +41,7 @@ class Employee(models.Model):
     refPhone = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.name +" " +self.firstName
 
 class Message(models.Model):
     typeDemande = models.ForeignKey(TypeDemande,on_delete=models.PROTECT)
