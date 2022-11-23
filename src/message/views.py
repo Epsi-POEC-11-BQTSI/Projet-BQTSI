@@ -130,7 +130,7 @@ def indexall(request):
 
 
 def ficheRequest(request, reference):
-    info = Employee.objects.get(reference=reference)
+    info = Employee.objects.get(name=reference)
 
     return render(request, "message/fiche.html", {'valeur': info
                                                   })

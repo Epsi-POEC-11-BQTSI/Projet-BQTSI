@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.defaults import server_error
 from .views import index, messageDetail, envoyerMessage, addRequest, saveRequest, sysadmin, indexall, \
-    logOut, validRequest, refuseRequest
+    logOut, validRequest, refuseRequest, ficheRequest
 
 urlpatterns = [
     path('', index, name="message"),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('valid/<int:id>', validRequest),
     path('refuse/<int:id>', refuseRequest),
     path('logout/', logOut),
+    path('<str:reference>', ficheRequest),
 ]
